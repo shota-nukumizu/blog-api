@@ -1,4 +1,5 @@
 backend/__pycache__/
+backend/static/
 
 blog/__pycache__/
 blog/migrations/__pycache__/
