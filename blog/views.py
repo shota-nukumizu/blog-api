@@ -17,3 +17,12 @@ class ArticleViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly, )
     pagination_class = CustomPagination
     lookup_field = 'slug'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        tag = self.request.query_params.get('tag', None)
+        if tag:
+            queryset = queryset.filter(tag=tag)
+        
+        return queryset
