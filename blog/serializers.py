@@ -11,6 +11,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.HyperlinkedModelSerializer):
     tag = TagSerializer(read_only=True, many=True)
+    main_text = serializers.SerializerMethodField()
 
     class Meta:
         model = ArticleModel
@@ -19,3 +20,6 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {
             'url': {'lookup_field': 'slug'}
         }
+    
+    def get_main_text(self, obj):
+        return obj.convert_markdown_to_html()
